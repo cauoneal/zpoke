@@ -1,10 +1,26 @@
-<mvc:View controllerName="ZPOKE.ZPOKE.controller.V0" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:mvc="sap.ui.core.mvc"
+<mvc:View controllerName="ZPOKE.ZPOKE.controller.V0" 
+xmlns:custom="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+xmlns:html="http://www.w3.org/1999/xhtml" xmlns:mvc="sap.ui.core.mvc"
 	displayBlock="true" xmlns="sap.m">
-	<App id="idAppControl">
-		<pages>
-			<Page title="{i18n>title}">
-				<content></content>
+	<SplitApp id="SplitAppDemo" initialDetail="detail" initialMaster="master" orientationChange="onOrientationChange">
+		<detailPages>
+			<Page id="detail" title="{detail>/name}" class="sapUiStdPage">
+				<content>
+					<Image src="{detail>/sprites/front_default}"/>
+					<Image src="{detail>/sprites/back_default}"/>
+					<Image src="{detail>/sprites/front_shiny}"/>
+					<Image src="{detail>/sprites/back_shiny}"/>
+				</content>
 			</Page>
-		</pages>
-	</App>
+		</detailPages>
+		<masterPages>
+			<Page id="masterPageTitle" title="Lista de Pokemons" icon="sap-icon://action" class="sapUiStdPage">
+				<content>
+					<List id="PokeList" items="{path: '/'}" includeItemInSelection="true">
+					<StandardListItem title="{name}" description="{url}" press="onVisualizar" type="Navigation"/>
+					</List>
+				</content>
+			</Page>
+		</masterPages>
+	</SplitApp>
 </mvc:View>

@@ -4,43 +4,43 @@ sap.ui.define([
 	"use strict";
 
 	return Controller.extend("ZPOKE.ZPOKE.controller.V0", {
-		
+
 		onInit: function () {
-			debugger 
-			    var param = '25';
-    var pokeURL = "http://pokeapi.co/api/v1/pokemon/" + param;
 
-    $.getJSON(pokeURL, function(data){
-        //console.log(data);
-        //console.log(JSON.stringify(data, null, "  "));
+			let pokeURL = "https://pokeapi-215911.firebaseapp.com/api/v2/pokemon?offset=0&limit=19";
 
-        var pokeID = data.national_id;
-        var pokeName = data.name;
-        var pokeType1 = data.types[0].name;
-        if (data.types.length == 2) {
-            var pokeType2 = data.types[1].name;
-        }
-        else var pokeType2 = null;
+			let dados;
+			let that = this;
+			$.getJSON({
+				url: pokeURL,
+				async: false,
+				success: function (data) {
+					that.dados = data;
+				}
+			});
 
-        // concatenate new URL for next GET request
-        var descriptionURI = "http://pokeapi.co" + data.descriptions[0].resource_uri;
+			var oModel = new sap.ui.model.json.JSONModel(that.dados.results);
+			this.getView().setModel(oModel);
+		},
 
-        // this var will hold the description string
-        var pokeDescription = "";
+		onVisualizar: function (oEvent) {
+			debugger;
+			var url = oEvent.oSource.mProperties.description;
+			let dados;
+			let that = this;
+			$.getJSON({
+				url: url,
+				async: false,
+				success: function (data) {
+					that.dados = data;
+				}
+			});
 
-	// GET request to new URL
-	$.getJSON(descriptionURI, function(data2){
-		console.log(data2);
+			var oModelDetail = new sap.ui.model.json.JSONModel(that.dados);
+			this.getView().setModel(oModelDetail, "detail");
 
-		console.log("Number: ", pokeID);
-		console.log("Name: ", pokeName);
-		console.log("Type 1: ", pokeType1);
-		console.log("Type 2: ", pokeType2);
-		console.log("Description URI: ", descriptionURI);
-        });        
+		},
 
-    });	// 2nd GET request is nested inside success function of 1st request
-		}
-		
 	});
+
 });
