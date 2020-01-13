@@ -1,7 +1,8 @@
 <mvc:View controllerName="ZPOKE.ZPOKE.controller.V0" 
 xmlns:custom="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
 xmlns:html="http://www.w3.org/1999/xhtml" xmlns:mvc="sap.ui.core.mvc"
-	displayBlock="true" xmlns="sap.m">
+	displayBlock="true" xmlns="sap.m" xmlns:tb="sap.ui.table">
+	<App id="idAppControl">
 	<SplitApp id="SplitAppDemo" initialDetail="detail" initialMaster="master" orientationChange="onOrientationChange">
 		<detailPages>
 			<Page id="detail" title="{detail>/name}" class="sapUiStdPage">
@@ -10,6 +11,27 @@ xmlns:html="http://www.w3.org/1999/xhtml" xmlns:mvc="sap.ui.core.mvc"
 					<Image src="{detail>/sprites/back_default}"/>
 					<Image src="{detail>/sprites/front_shiny}"/>
 					<Image src="{detail>/sprites/back_shiny}"/>
+					
+				<tb:Table
+				rows="{/}"
+				selectionMode="MultiToggle"
+				visibleRowCount="7"
+				paste="onPaste"
+				arialabelledby="title">
+				<tb:extension>
+					<OverflowToolbar>
+						<Title id="title" text="Meu titulo fixo com Overflow Toolbar"/>
+					</OverflowToolbar>
+				</tb:extension>
+				<tb:columns>
+					<tb:Column width="11rem">
+						<Label text="Product Name" />
+						<tb:template>
+							<Text text="{name}" wrapping="false" />
+						</tb:template>
+					</tb:Column>					
+				</tb:columns>
+				</tb:Table>
 				</content>
 			</Page>
 		</detailPages>
@@ -23,4 +45,5 @@ xmlns:html="http://www.w3.org/1999/xhtml" xmlns:mvc="sap.ui.core.mvc"
 			</Page>
 		</masterPages>
 	</SplitApp>
+	</App>
 </mvc:View>
